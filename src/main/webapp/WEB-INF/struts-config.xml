@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+        "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+<struts-config>
+
+    <form-beans>
+        <form-bean name="loginProcess"
+                   type="ua.com.struts.actions.forms.LoginForm"/>
+        <form-bean name="logout"
+                   type="ua.com.struts.actions.forms.LogoutForm"/>
+        <form-bean name="registrationProcess"
+                   type="ua.com.struts.actions.forms.RegistrationForm"/>
+    </form-beans>
+
+    <action-mappings>
+        <action path="/loginProcess"
+                type="ua.com.struts.actions.LoginAction"
+                name="loginProcess"
+                input="/jsp/login/login.jsp">
+            <forward name="success" path="/jsp/login/loginSuccess.jsp"/>
+        </action>
+        <action path="/login" forward="/jsp/login/login.jsp" />
+        <action path="/logout"
+                type="ua.com.struts.actions.LogoutAction"
+                name="logout">
+            <forward name="success" path="/jsp/logoutSuccess.jsp"/>
+        </action>
+        <action path="/registration" forward="/jsp/registration/registration.jsp" />
+        <action path="/registrationProcess"
+                type="ua.com.struts.actions.RegistrationAction"
+                name="registrationProcess"
+                input="/jsp/registration/registration.jsp">
+            <forward name="success" path="/jsp/registration/registrationSuccess.jsp"/>
+        </action>
+    </action-mappings>
+
+    <message-resources parameter="errorMessages"/>
+
+</struts-config>

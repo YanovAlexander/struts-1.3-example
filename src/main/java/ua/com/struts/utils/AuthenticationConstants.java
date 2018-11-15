@@ -3,8 +3,9 @@ package ua.com.struts.utils;
 public final class AuthenticationConstants {
     public static final String MD5 = "MD5";
 
-    public static final String HOST = "oyanov-lp";
-    public static final String PORT = "5000";
+    public static final String HOST = "HOST";
+    public static final String PORT = "PORT";
+    public static final String PROP_FILENAME = "db.properties";
     public static final String DRIVER_CLASSNAME = "net.sourceforge.jtds.jdbc.Driver";
 
     public static final String DATABASE_USERNAME = "sa";

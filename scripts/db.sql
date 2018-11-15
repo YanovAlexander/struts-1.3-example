@@ -1,0 +1,3 @@
+CREATE TABLE users(id BIGINT IDENTITY ,
+username NVARCHAR(1000),
+password NVARCHAR(1000));

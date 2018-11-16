@@ -1,11 +1,10 @@
 package ua.com.struts.dao;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 import org.apache.log4j.Logger;
 import ua.com.struts.utils.AuthenticationConstants;
 import ua.com.struts.utils.DatabaseException;
+import ua.com.struts.utils.PropertiesUtils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,7 +25,7 @@ public class SybaseConnector {
             if (connection != null) {
                 return connection;
             }
-            Properties properties = loadProperties();
+            Properties properties = PropertiesUtils.loadProperties(AuthenticationConstants.DB_PROP_FILENAME);
             String url = String.format("jdbc:jtds:sybase://%s:%s/", properties.getProperty(AuthenticationConstants.HOST), properties.getProperty(AuthenticationConstants.PORT));
             connection = DriverManager.getConnection(url,
                     userName, password);
@@ -49,17 +48,4 @@ public class SybaseConnector {
             LOG.error("disconnect: Error", e);
         }
     }
-
-    private static Properties loadProperties() {
-        Properties properties = new Properties();
-        try (InputStream resourceAsStream = SybaseConnector.class.getClassLoader().getResourceAsStream(AuthenticationConstants.PROP_FILENAME)){
-            properties.load(resourceAsStream);
-        } catch (IOException e) {
-            LOG.error("loadProperties: Properties not found", e);
-            throw new RuntimeException("Properties not found", e);
-        }
-
-        return properties;
-    }
-
 }

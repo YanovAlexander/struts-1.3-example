@@ -5,10 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.apache.struts.action.Action;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.*;
 import ua.com.struts.actions.forms.LoginForm;
 import ua.com.struts.dao.AuthenticationDao;
 import ua.com.struts.dao.impl.AuthenticationDaoImpl;
@@ -23,6 +20,8 @@ public class LoginAction extends Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
                                  HttpServletRequest request, HttpServletResponse response) {
         LoginForm loginForm = (LoginForm) form;
+        ActionErrors errors = new ActionErrors();
+        //TODO handle error messages.
 
         try {
             AuthenticationDao authentication = new AuthenticationDaoImpl();

@@ -1,13 +1,12 @@
 package ua.com.struts.actions;
 
 import org.apache.log4j.Logger;
-import org.apache.struts.action.Action;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.*;
 import ua.com.struts.actions.forms.RegistrationForm;
 import ua.com.struts.dao.AuthenticationDao;
 import ua.com.struts.dao.impl.AuthenticationDaoImpl;
+import ua.com.struts.services.MailProvider;
+import ua.com.struts.services.impl.MailProviderImpl;
 import ua.com.struts.utils.AuthenticationConstants;
 import ua.com.struts.utils.DatabaseException;
 import ua.com.struts.utils.Passwords;
@@ -22,16 +21,25 @@ public class RegistrationAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form,
                                  HttpServletRequest request, HttpServletResponse response) {
+        ActionErrors errors = new ActionErrors();
         RegistrationForm registration = (RegistrationForm) form;
+        MailProvider mailProvider = new MailProviderImpl();
+        mailProvider.sendAuthorizationMail(registration.getUsername(), "yanov.alexander@gmail.com");
         AuthenticationDao authenticationDao = new AuthenticationDaoImpl();
+        //TODO add email to registration form.
+        
         try {
             authenticationDao.saveUser(registration.getUsername(), Passwords.encryptPassword(registration.getPassword()));
             return mapping.findForward(AuthenticationConstants.SUCCESS);
         } catch (DatabaseException e) {
             LOG.error("registration: connection refused");
-            return mapping.findForward(AuthenticationConstants.CONNECTION_REFUSED);
+            errors.add(AuthenticationConstants.REGISTRATION_ERROR, new ActionMessage(AuthenticationConstants.CONNECTION_REFUSED));
+            addErrors(request, new ActionMessages(errors));
+            return mapping.findForward(AuthenticationConstants.ERROR);
         } catch (Exception e) {
             LOG.error("registration: Error", e);
+            errors.add(AuthenticationConstants.REGISTRATION_ERROR, new ActionMessage(AuthenticationConstants.REGISTRATION_ERROR));
+            addErrors(request, new ActionMessages(errors));
         }
 
         return mapping.findForward(AuthenticationConstants.ERROR);

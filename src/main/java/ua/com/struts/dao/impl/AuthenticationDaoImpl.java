@@ -45,14 +45,18 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
     }
 
     @Override
-    public void saveUser(String username, String userPassword) {
+    public void saveUser(String username, String userPassword, String email, String countryCode, String phoneNumber, int authyId) {
         try {
             Connection connection = SybaseConnector.connect(AuthenticationConstants.DATABASE_USERNAME, AuthenticationConstants.DATABASE_PASSWORD);
 
             PreparedStatement ps = connection.prepareStatement(
-                    "INSERT INTO users(username, password) VALUES (?,?)");
+                    "INSERT INTO users(username, password, email, country_code, phone_number, authy_id) VALUES (?,?,?,?,?,?)");
             ps.setString(1, username);
             ps.setString(2, userPassword);
+            ps.setString(3, email);
+            ps.setString(4, countryCode);
+            ps.setString(5, phoneNumber);
+            ps.setInt(6, authyId);
             ps.executeUpdate();
 
             ps.close();

@@ -11,7 +11,7 @@ public final class AuthenticationConstants {
     public static final String DRIVER_CLASSNAME = "net.sourceforge.jtds.jdbc.Driver";
 
     public static final String DATABASE_USERNAME = "sa";
-    public static final String DATABASE_PASSWORD = "123456";
+    public static final String DATABASE_PASSWORD = "qazwsx";
 
     public static final String PASSWORD_PATTERN = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}";
     public static final String EMAIL_PATTERN = "^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
@@ -19,6 +19,7 @@ public final class AuthenticationConstants {
     public static final String CONNECTION_REFUSED = "connection.refused";
     public static final String ERROR = "error";
     public static final String SUCCESS = "success";
+    public static final String LOGIN = "login";
     public static final String USER_EXISTS = "user.exists";
     public static final String USER_NOT_EXISTS = "user.not.exists";
     public static final String LOGIN_ERROR = "login.error";

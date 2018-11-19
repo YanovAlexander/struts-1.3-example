@@ -44,7 +44,7 @@ public class Validations {
             errors.add(AuthenticationConstants.PASSWORD_ERROR_KEY, new ActionMessage(AuthenticationConstants.PASSWORD_SECURITY_ERROR));
         }
 
-        if (errors.isEmpty() && !registrationForm.getEmail().matches(AuthenticationConstants.PASSWORD_PATTERN)) {
+        if (errors.isEmpty() && !registrationForm.getEmail().matches(AuthenticationConstants.EMAIL_PATTERN)) {
             errors.add(AuthenticationConstants.EMAIL_ERROR_KEY, new ActionMessage(AuthenticationConstants.EMAIL_NOT_CORRECT));
         }
 

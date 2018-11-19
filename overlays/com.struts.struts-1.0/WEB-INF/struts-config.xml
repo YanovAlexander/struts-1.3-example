@@ -19,7 +19,6 @@
                 name="loginProcess"
                 input="/jsp/login/login.jsp">
             <forward name="success" path="/jsp/login/loginSuccess.jsp"/>
-            <forward name="error" path="/jsp/login/login.jsp"/>
         </action>
         <action path="/login" forward="/jsp/login/login.jsp" />
         <action path="/logout"
@@ -33,8 +32,6 @@
                 name="registrationProcess"
                 input="/jsp/registration/registration.jsp">
             <forward name="success" path="/jsp/registration/registrationSuccess.jsp"/>
-            <forward name="error" path="/jsp/registration/registration.jsp"/>
-            <forward name="login" path="/jsp/login/login.jsp"/>
         </action>
     </action-mappings>
 

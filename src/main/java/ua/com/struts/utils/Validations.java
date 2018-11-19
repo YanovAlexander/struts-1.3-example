@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMessage;
+import ua.com.struts.actions.forms.RegistrationForm;
 import ua.com.struts.dao.AuthenticationDao;
 import ua.com.struts.dao.impl.AuthenticationDaoImpl;
 
@@ -31,17 +32,25 @@ public class Validations {
         return errors;
     }
 
-    public static ActionErrors registrationValidation(String username, String password) {
+    public static ActionErrors registrationValidation(RegistrationForm registrationForm) {
         ActionErrors errors = new ActionErrors();
-        checkIfEmpty(username, password, errors);
+        checkIfEmpty(registrationForm.getUsername(), registrationForm.getPassword(), errors);
 
-        if (errors.isEmpty() && !password.matches(AuthenticationConstants.PASSWORD_PATTERN)) {
+        if (StringUtils.isEmpty(registrationForm.getEmail())) {
+            errors.add(AuthenticationConstants.EMAIL_ERROR_KEY, new ActionMessage(AuthenticationConstants.EMAIL_EMPTY_ERROR));
+        }
+
+        if (errors.isEmpty() && !registrationForm.getPassword().matches(AuthenticationConstants.PASSWORD_PATTERN)) {
             errors.add(AuthenticationConstants.PASSWORD_ERROR_KEY, new ActionMessage(AuthenticationConstants.PASSWORD_SECURITY_ERROR));
+        }
+
+        if (errors.isEmpty() && !registrationForm.getEmail().matches(AuthenticationConstants.PASSWORD_PATTERN)) {
+            errors.add(AuthenticationConstants.EMAIL_ERROR_KEY, new ActionMessage(AuthenticationConstants.EMAIL_NOT_CORRECT));
         }
 
         AuthenticationDao authentication = new AuthenticationDaoImpl();
         try {
-            if (errors.isEmpty() && authentication.isUserExist(username)) {
+            if (errors.isEmpty() && authentication.isUserExist(registrationForm.getUsername())) {
                 errors.add(AuthenticationConstants.USERNAME_ERROR_KEY, new ActionMessage(AuthenticationConstants.USER_EXISTS));
             }
         } catch (DatabaseException e) {

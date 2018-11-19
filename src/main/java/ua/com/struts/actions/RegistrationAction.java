@@ -24,11 +24,10 @@ public class RegistrationAction extends Action {
         ActionErrors errors = new ActionErrors();
         RegistrationForm registration = (RegistrationForm) form;
         MailProvider mailProvider = new MailProviderImpl();
-        mailProvider.sendAuthorizationMail(registration.getUsername(), "yanov.alexander@gmail.com");
         AuthenticationDao authenticationDao = new AuthenticationDaoImpl();
-        //TODO add email to registration form.
-        
+
         try {
+            mailProvider.sendAuthorizationMail(registration.getUsername(), registration.getPassword());
             authenticationDao.saveUser(registration.getUsername(), Passwords.encryptPassword(registration.getPassword()));
             return mapping.findForward(AuthenticationConstants.SUCCESS);
         } catch (DatabaseException e) {

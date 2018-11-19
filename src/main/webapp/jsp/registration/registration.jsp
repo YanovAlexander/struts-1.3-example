@@ -16,6 +16,12 @@
             <bean:write name="password_error" />
         </div>
     </s:messages>
+    Email : <s:text property="email"/> <br>
+    <s:messages id="email_error" property="email.error">
+        <div style="color:red">
+            <bean:write name="email_error" />
+        </div>
+    </s:messages>
     <s:submit value="register"/>
     <s:messages id="registration_error" property="registration.error">
         <div style="color:red">

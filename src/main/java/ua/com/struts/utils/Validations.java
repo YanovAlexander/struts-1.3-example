@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMessage;
+import ua.com.struts.actions.forms.LoginForm;
 import ua.com.struts.actions.forms.RegistrationForm;
 import ua.com.struts.dao.AuthenticationDao;
 import ua.com.struts.dao.impl.AuthenticationDaoImpl;
@@ -12,13 +13,13 @@ import ua.com.struts.dao.impl.AuthenticationDaoImpl;
 public class Validations {
     private static final Logger LOG = Logger.getLogger(Validations.class);
 
-    public static ActionErrors loginValidation(String username, String password) {
+    public static ActionErrors loginValidation(LoginForm loginForm) {
         ActionErrors errors = new ActionErrors();
-        checkIfEmpty(username, password, errors);
+        checkIfEmpty(loginForm.getUsername(), loginForm.getPassword(), errors);
 
         AuthenticationDao authentication = new AuthenticationDaoImpl();
         try {
-            if (errors.isEmpty() && !authentication.isUserExist(username, Passwords.encryptPassword(password))) {
+            if (errors.isEmpty() && !authentication.isUserExist(loginForm.getUsername(), Passwords.encryptPassword(loginForm.getPassword()))) {
                 errors.add(AuthenticationConstants.LOGIN_ERROR, new ActionMessage(AuthenticationConstants.USER_NOT_EXISTS));
             }
         } catch (DatabaseException e) {
@@ -44,7 +45,7 @@ public class Validations {
             errors.add(AuthenticationConstants.PASSWORD_ERROR_KEY, new ActionMessage(AuthenticationConstants.PASSWORD_SECURITY_ERROR));
         }
 
-        if (errors.isEmpty() && !registrationForm.getEmail().matches(AuthenticationConstants.PASSWORD_PATTERN)) {
+        if (errors.isEmpty() && !registrationForm.getEmail().matches(AuthenticationConstants.EMAIL_PATTERN)) {
             errors.add(AuthenticationConstants.EMAIL_ERROR_KEY, new ActionMessage(AuthenticationConstants.EMAIL_NOT_CORRECT));
         }
 

@@ -27,7 +27,7 @@ public class RegistrationAction extends Action {
         AuthenticationDao authenticationDao = new AuthenticationDaoImpl();
 
         try {
-            mailProvider.sendAuthorizationMail(registration.getUsername(), registration.getPassword());
+            mailProvider.sendAuthorizationMail(registration.getUsername(), registration.getEmail());
             authenticationDao.saveUser(registration.getUsername(), Passwords.encryptPassword(registration.getPassword()));
             return mapping.findForward(AuthenticationConstants.SUCCESS);
         } catch (DatabaseException e) {

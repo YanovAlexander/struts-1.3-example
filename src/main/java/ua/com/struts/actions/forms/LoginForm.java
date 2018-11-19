@@ -33,6 +33,6 @@ public class LoginForm extends ActionForm {
 
     @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-        return Validations.loginValidation(getUsername(), getPassword());
+        return Validations.loginValidation(this);
     }
 }

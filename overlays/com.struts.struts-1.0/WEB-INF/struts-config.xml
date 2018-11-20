@@ -11,8 +11,6 @@
                    type="ua.com.struts.actions.forms.LogoutForm"/>
         <form-bean name="registrationProcess"
                    type="ua.com.struts.actions.forms.RegistrationForm"/>
-        <form-bean name="loginVerification"
-                   type="ua.com.struts.actions.forms.VerificationForm"/>
     </form-beans>
 
     <action-mappings>
@@ -20,8 +18,7 @@
                 type="ua.com.struts.actions.LoginAction"
                 name="loginProcess"
                 input="/jsp/login/login.jsp">
-            <forward name="loginVerification" path="/jsp/login/loginVerification.jsp" />
-            <forward name="error" path="/jsp/login/login.jsp"/>
+            <forward name="success" path="/jsp/login/loginSuccess.jsp"/>
         </action>
         <action path="/login" forward="/jsp/login/login.jsp" />
         <action path="/logout"
@@ -35,15 +32,6 @@
                 name="registrationProcess"
                 input="/jsp/registration/registration.jsp">
             <forward name="success" path="/jsp/registration/registrationSuccess.jsp"/>
-            <forward name="error" path="/jsp/registration/registration.jsp"/>
-            <forward name="login" path="/jsp/login/login.jsp"/>
-        </action>
-        <action path="/loginVerification"
-                type="ua.com.struts.actions.VerificationAction"
-                name="loginVerification"
-                input="/jsp/login/loginVerification.jsp">
-            <forward name="success" path="/jsp/login/loginSuccess.jsp"/>
-            <forward name="error" path="/jsp/login/login.jsp" />
         </action>
     </action-mappings>
 

@@ -11,6 +11,8 @@ public class RegistrationForm extends ActionForm {
     private String username;
     private String password;
     private String email;
+    private String countryCode;
+    private String phoneNumber;
 
     public String getUsername() {
         return username;
@@ -28,23 +30,41 @@ public class RegistrationForm extends ActionForm {
         this.password = password;
     }
 
-    @Override
-    public void reset(ActionMapping mapping, HttpServletRequest request) {
-        this.username = null;
-        this.password = null;
-        this.email = null;
-    }
-
-    @Override
-    public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-        return Validations.registrationValidation(this);
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public void reset(ActionMapping mapping, HttpServletRequest request) {
+        this.username = null;
+        this.password = null;
+        this.email = null;
+        this.countryCode = null;
+        this.phoneNumber = null;
+    }
+
+    @Override
+    public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+        return Validations.registrationValidation(this);
     }
 }

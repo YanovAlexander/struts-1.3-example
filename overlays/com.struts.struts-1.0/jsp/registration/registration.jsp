@@ -4,8 +4,8 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
 <s:form action="registrationProcess">
-    Username : <s:text property="username" /> <br>
-    <s:messages id="username_error" property="username.error">
+    Username : <s:text property="email" /> <br>
+    <s:messages id="username_error" property="email.error">
         <div style="color:red">
             <bean:write name="username_error" />
         </div>
@@ -16,13 +16,6 @@
             <bean:write name="password_error" />
         </div>
     </s:messages>
-    Email : <s:text property="email"/> <br>
-    <s:messages id="email_error" property="email.error">
-        <div style="color:red">
-            <bean:write name="email_error" />
-        </div>
-    </s:messages>
-    Country code: <s:text property="countryCode" size="4" /> Phone: <s:text property="phoneNumber" />
     <s:submit value="register"/>
     <s:messages id="registration_error" property="registration.error">
         <div style="color:red">

@@ -1,7 +1,7 @@
 **1.** Install IBM WebSphere from official site.(Create profile, delete default enterprise applications in WebSphere administrative console)<br>
 **2.** Install Sybase ASE.<br>
 **3.** Configure db.properties file in **resources/db.properties**. Set HOST and PORT for Sybase. <br>
-**4.** Run db.sql to create database table. <br>
+**4.** Run 01-db.sql to create database table. <br>
 **5.** If certificate not trusted by Websphere: <br>
 Configured the properties as below in the WebSphere<br>
 Select Servers > Application Servers > server_name > Process Definition > Java Virtual Machine > Custom Properties > New.<br>

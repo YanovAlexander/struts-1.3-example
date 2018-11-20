@@ -6,7 +6,9 @@ import ua.com.struts.utils.Validations;
 import javax.servlet.http.HttpServletRequest;
 
 public class LoginForm extends ActionForm {
-    private String username = null;
+
+    private String username;
+    private String email = null;
     private String password = null;
 
     public String getUsername() {
@@ -15,6 +17,14 @@ public class LoginForm extends ActionForm {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -27,7 +37,7 @@ public class LoginForm extends ActionForm {
 
     @Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
-        this.username = null;
+        this.email = null;
         this.password = null;
     }
 

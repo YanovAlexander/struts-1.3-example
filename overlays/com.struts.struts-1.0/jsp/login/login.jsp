@@ -4,8 +4,8 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
 <s:form action="loginProcess" >
-    Username : <s:text property="username" /> <br>
-    <s:messages id="username_error" property="username.error">
+    Username : <s:text property="email" /> <br>
+    <s:messages id="username_error" property="email.error">
         <div style="color:red">
             <bean:write name="username_error" />
         </div>

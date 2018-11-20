@@ -14,12 +14,13 @@ public final class AuthenticationConstants {
     public static final String DATABASE_PASSWORD = "qazwsx";
 
     public static final String PASSWORD_PATTERN = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}";
-    public static final String EMAIL_PATTERN = "^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+    public static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     public static final String PASSWORD_SECURITY_ERROR = "password.not.secure";
     public static final String CONNECTION_REFUSED = "connection.refused";
     public static final String ERROR = "error";
     public static final String SUCCESS = "success";
     public static final String LOGIN = "login";
+    public static final String LOGIN_VERIFICATION = "loginVerification";
     public static final String USER_EXISTS = "user.exists";
     public static final String USER_NOT_EXISTS = "user.not.exists";
     public static final String LOGIN_ERROR = "login.error";
@@ -32,6 +33,7 @@ public final class AuthenticationConstants {
     public static final String PASSWORD = "password";
     public static final String EMAIL_ERROR_KEY = "email.error";
     public static final String EMAIL_NOT_CORRECT = "email.not.correct";
-
     public static final String EMAIL_EMPTY_ERROR = "email.empty.error";
+    public static final String VERIFICATION_EMPTY_ERROR_KEY = "verification.empty.error";
+    public static final String VERIFICATION_ERROR_KEY = "verification.error";
 }

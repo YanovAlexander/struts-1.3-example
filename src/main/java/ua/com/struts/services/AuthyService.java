@@ -1,7 +1,9 @@
-package ua.com.struts.service;
+package ua.com.struts.services;
 
 import com.authy.AuthyApiClient;
 import com.authy.AuthyException;
+import com.authy.api.Hash;
+import com.authy.api.Token;
 import com.authy.api.User;
 
 public class AuthyService {
@@ -22,6 +24,25 @@ public class AuthyService {
             } else {
                 throw new RuntimeException(user.getError().getMessage());
             }
+        } catch (AuthyException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
+
+    public void sendVerificationRequest(int authyId) {
+        try {
+            Hash result = client.getUsers().requestSms(authyId);
+            if(!result.isSuccess()) {
+                throw new RuntimeException(result.getError().getMessage());
+            }
+        } catch (AuthyException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
+
+    public Token verifyToken(int authyId, String token) {
+        try {
+            return client.getTokens().verify(authyId, token);
         } catch (AuthyException e) {
             throw new RuntimeException(e.getMessage(), e);
         }

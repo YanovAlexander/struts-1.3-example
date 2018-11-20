@@ -7,7 +7,7 @@ import ua.com.struts.dao.AuthenticationDao;
 import ua.com.struts.dao.impl.AuthenticationDaoImpl;
 import ua.com.struts.services.MailProvider;
 import ua.com.struts.services.impl.MailProviderImpl;
-import ua.com.struts.service.AuthyService;
+import ua.com.struts.services.AuthyService;
 import ua.com.struts.utils.AuthenticationConstants;
 import ua.com.struts.utils.DatabaseException;
 import ua.com.struts.utils.Passwords;
@@ -30,13 +30,12 @@ public class RegistrationAction extends Action {
         ActionErrors errors = new ActionErrors();
         RegistrationForm registration = (RegistrationForm) form;
         MailProvider mailProvider = new MailProviderImpl();
-        mailProvider.sendAuthorizationMail(registration.getUsername(), "yanov.alexander@gmail.com");
         AuthenticationDao authenticationDao = new AuthenticationDaoImpl();
 
         try {
+            mailProvider.sendAuthorizationMail(registration.getUsername(), registration.getEmail());
             int authyId = authyService.sendRegistrationRequest(registration.getEmail(), registration.getPhoneNumber(),
                     registration.getCountryCode());
-            mailProvider.sendAuthorizationMail(registration.getUsername(), registration.getPassword());
             authenticationDao.saveUser(registration.getUsername(), Passwords.encryptPassword(registration.getPassword()),
                     registration.getEmail(), registration.getCountryCode(), registration.getPhoneNumber(), authyId);
             return mapping.findForward(AuthenticationConstants.LOGIN);

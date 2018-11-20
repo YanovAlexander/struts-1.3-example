@@ -1,2 +1,2 @@
 <jsp:include page="registration.jsp"/>
-Sorry username already exist, please type another!
+Sorry email already exist, please type another!

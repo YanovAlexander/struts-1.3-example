@@ -4,7 +4,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMessage;
+import ua.com.struts.actions.forms.LoginForm;
 import ua.com.struts.actions.forms.RegistrationForm;
+import ua.com.struts.actions.forms.VerificationForm;
 import ua.com.struts.dao.AuthenticationDao;
 import ua.com.struts.dao.impl.AuthenticationDaoImpl;
 
@@ -12,13 +14,13 @@ import ua.com.struts.dao.impl.AuthenticationDaoImpl;
 public class Validations {
     private static final Logger LOG = Logger.getLogger(Validations.class);
 
-    public static ActionErrors loginValidation(String username, String password) {
+    public static ActionErrors loginValidation(LoginForm loginForm) {
         ActionErrors errors = new ActionErrors();
-        checkIfEmpty(username, password, errors);
+        checkIfEmpty(loginForm.getEmail(), loginForm.getPassword(), errors);
 
         AuthenticationDao authentication = new AuthenticationDaoImpl();
         try {
-            if (errors.isEmpty() && !authentication.isUserExist(username, Passwords.encryptPassword(password))) {
+            if (errors.isEmpty() && !authentication.isUserExist(loginForm.getEmail(), Passwords.encryptPassword(loginForm.getPassword()))) {
                 errors.add(AuthenticationConstants.LOGIN_ERROR, new ActionMessage(AuthenticationConstants.USER_NOT_EXISTS));
             }
         } catch (DatabaseException e) {
@@ -59,6 +61,15 @@ public class Validations {
         } catch (Exception e) {
             LOG.error("registrationValidation: Error", e);
             errors.add(AuthenticationConstants.REGISTRATION_ERROR, new ActionMessage(AuthenticationConstants.REGISTRATION_ERROR));
+        }
+        return errors;
+    }
+
+    public static ActionErrors validateVerificationCode(VerificationForm verificationForm) {
+        ActionErrors errors = new ActionErrors();
+
+        if (StringUtils.isEmpty(verificationForm.getVerificationCode())) {
+            errors.add(AuthenticationConstants.VERIFICATION_EMPTY_ERROR_KEY, new ActionMessage(AuthenticationConstants.VERIFICATION_EMPTY_ERROR_KEY));
         }
         return errors;
     }

@@ -15,6 +15,7 @@ import java.sql.SQLException;
 public class AuthenticationDaoImpl implements AuthenticationDao {
 
     private static final Logger LOG = Logger.getLogger(AuthenticationDaoImpl.class);
+    private static final String COLUMN_ID = "id";
     private static final String COLUMN_USERNAME = "username";
     private static final String COLUMN_EMAIL = "email";
     private static final String COLUMN_COUNTRY_CODE = "country_code";
@@ -27,13 +28,38 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
             Connection connection = SybaseConnector.connect(AuthenticationConstants.DATABASE_USERNAME,
                     AuthenticationConstants.DATABASE_PASSWORD);
             PreparedStatement ps = connection.prepareStatement(
-                    "SELECT username, email, country_code, phone_number, authy_id FROM users WHERE email = ? AND password = ?");
+                    "SELECT id, username, email, country_code, phone_number, authy_id FROM users WHERE email = ? AND password = ?");
             ps.setString(1, email);
             ps.setString(2, password);
 
             ResultSet rs = ps.executeQuery();
             rs.next();
             User user = new User();
+            user.setId(rs.getInt(COLUMN_ID));
+            user.setUsername(rs.getString(COLUMN_USERNAME));
+            user.setEmail(rs.getString(COLUMN_EMAIL));
+            user.setCountryCode(rs.getString(COLUMN_COUNTRY_CODE));
+            user.setPhoneNumber(rs.getString(COLUMN_PHONE_NUMBER));
+            user.setAuthyId(rs.getInt(COLUMN_AUTHY_ID));
+            return user;
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public User findUserById(long userId) {
+        try {
+            Connection connection = SybaseConnector.connect(AuthenticationConstants.DATABASE_USERNAME,
+                    AuthenticationConstants.DATABASE_PASSWORD);
+            PreparedStatement ps = connection.prepareStatement(
+                    "SELECT id, username, email, country_code, phone_number, authy_id FROM users WHERE id = ?");
+            ps.setLong(1, userId);
+
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            User user = new User();
+            user.setId(rs.getLong(COLUMN_ID));
             user.setUsername(rs.getString(COLUMN_USERNAME));
             user.setEmail(rs.getString(COLUMN_EMAIL));
             user.setCountryCode(rs.getString(COLUMN_COUNTRY_CODE));

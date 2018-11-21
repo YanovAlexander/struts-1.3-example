@@ -1,7 +1,6 @@
 package ua.com.struts.actions;
 
 import com.authy.api.Token;
-import org.apache.log4j.Logger;
 import org.apache.struts.action.*;
 import ua.com.struts.actions.forms.VerificationForm;
 import ua.com.struts.services.AuthyService;
@@ -12,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class VerificationAction extends Action {
-
-    private static final Logger LOG = Logger.getLogger(LoginAction.class);
 
     private final AuthyService authyService;
     private final SessionManager sessionManager;

@@ -34,14 +34,7 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 
             ResultSet rs = ps.executeQuery();
             rs.next();
-            User user = new User();
-            user.setId(rs.getInt(COLUMN_ID));
-            user.setUsername(rs.getString(COLUMN_USERNAME));
-            user.setEmail(rs.getString(COLUMN_EMAIL));
-            user.setCountryCode(rs.getString(COLUMN_COUNTRY_CODE));
-            user.setPhoneNumber(rs.getString(COLUMN_PHONE_NUMBER));
-            user.setAuthyId(rs.getInt(COLUMN_AUTHY_ID));
-            return user;
+            return getUser(rs);
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
@@ -58,14 +51,7 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 
             ResultSet rs = ps.executeQuery();
             rs.next();
-            User user = new User();
-            user.setId(rs.getLong(COLUMN_ID));
-            user.setUsername(rs.getString(COLUMN_USERNAME));
-            user.setEmail(rs.getString(COLUMN_EMAIL));
-            user.setCountryCode(rs.getString(COLUMN_COUNTRY_CODE));
-            user.setPhoneNumber(rs.getString(COLUMN_PHONE_NUMBER));
-            user.setAuthyId(rs.getInt(COLUMN_AUTHY_ID));
-            return user;
+            return getUser(rs);
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
@@ -156,5 +142,16 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
         }
 
         return status;
+    }
+
+    private User getUser(ResultSet rs) throws SQLException {
+        User user = new User();
+        user.setId(rs.getLong(COLUMN_ID));
+        user.setUsername(rs.getString(COLUMN_USERNAME));
+        user.setEmail(rs.getString(COLUMN_EMAIL));
+        user.setCountryCode(rs.getString(COLUMN_COUNTRY_CODE));
+        user.setPhoneNumber(rs.getString(COLUMN_PHONE_NUMBER));
+        user.setAuthyId(rs.getInt(COLUMN_AUTHY_ID));
+        return user;
     }
 }

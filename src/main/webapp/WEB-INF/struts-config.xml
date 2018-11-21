@@ -13,6 +13,8 @@
                    type="ua.com.struts.actions.forms.RegistrationForm"/>
         <form-bean name="loginVerification"
                    type="ua.com.struts.actions.forms.VerificationForm"/>
+        <form-bean name="account"
+                   type="ua.com.struts.actions.forms.AccountForm" />
     </form-beans>
 
     <action-mappings>
@@ -45,6 +47,10 @@
             <forward name="success" path="/jsp/login/loginSuccess.jsp"/>
             <forward name="error" path="/jsp/login/login.jsp" />
         </action>
+        <action path="/account"
+                type="ua.com.struts.actions.AccountAction"
+                name="account"
+                input="/jsp/account.jsp" />
     </action-mappings>
 
     <message-resources parameter="errorMessages"/>

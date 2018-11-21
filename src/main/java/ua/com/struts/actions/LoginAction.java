@@ -40,7 +40,7 @@ public class LoginAction extends Action {
                     Passwords.encryptPassword(loginForm.getPassword()));
             loginForm.setUsername(user.getUsername());
             authyService.sendVerificationRequest(user.getAuthyId());
-            sessionManager.saveUserAuthyId(request, user.getAuthyId());
+            sessionManager.saveUser(request, user);
             return mapping.findForward(AuthenticationConstants.LOGIN_VERIFICATION);
         } catch (DatabaseException e) {
             LOG.error("execute: connection refused");
